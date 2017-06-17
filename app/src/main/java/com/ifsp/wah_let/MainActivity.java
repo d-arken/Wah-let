@@ -3,6 +3,8 @@ package com.ifsp.wah_let;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -40,6 +42,16 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        if (findViewById(R.id.container)!=null) {
+            if(savedInstanceState!=null){
+                return;
+            }
+            FragInicio fragInicio = new FragInicio();
+            FragmentManager manager = getSupportFragmentManager();
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.add(R.id.container, fragInicio);
+            transaction.commit();
+        }
     }
 
     @Override
@@ -68,6 +80,11 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            FragConfiguracoes fragConfiguracoes = new FragConfiguracoes();
+            FragmentManager manager = getSupportFragmentManager();
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.container, fragConfiguracoes);
+            transaction.commit();
             return true;
         }
 
@@ -81,9 +98,25 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_lancamento) {
-            // Handle the camera action
-        } else if (id == R.id.nav_extrato) {
-
+            FragLancamento fragLancamento = new FragLancamento();
+            FragmentManager manager = getSupportFragmentManager();
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.container,fragLancamento);
+            transaction.commit();
+            }
+        else if (id == R.id.nav_extrato) {
+            FragExtrato fragExtrato = new FragExtrato();
+            FragmentManager manager = getSupportFragmentManager();
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.container, fragExtrato);
+            transaction.commit();
+            }
+        else if (id == R.id.nav_inicio) {
+            FragInicio fragInicio = new FragInicio();
+            FragmentManager manager = getSupportFragmentManager();
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.container,fragInicio);
+            transaction.commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
