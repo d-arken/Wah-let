@@ -1,4 +1,4 @@
-package com.ifsp.wahlet;
+package com.example.lb29_18.myapplication;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.ifsp.wahlet", appContext.getPackageName());
+        assertEquals("com.example.lb29_18.myapplication", appContext.getPackageName());
     }
 }

@@ -1,4 +1,4 @@
-package com.ifsp.wahlet;
+package com.example.lb29_18.myapplication;
 
 import org.junit.Test;
 
