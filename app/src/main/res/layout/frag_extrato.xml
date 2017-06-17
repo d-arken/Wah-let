@@ -5,9 +5,60 @@
     tools:context="com.ifsp.wah_let.FragExtrato">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Extrato" />
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:text="Seus Extratos"
+            android:textSize="35sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/extratoSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView5"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="21dp"
+            android:entries="@array/ExtratoArray">
+
+        </Spinner>
+
+        <TextView
+            android:id="@+id/textViewSelecione"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/extratoSpinner"
+            android:layout_marginStart="11dp"
+            android:layout_marginTop="22dp"
+            android:text="Selecione o mês/ano" />
+
+        <Spinner
+            android:id="@+id/spinnerMes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textViewSelecione"
+            android:layout_alignBottom="@+id/textViewSelecione"
+            android:layout_marginStart="19dp"
+            android:layout_toEndOf="@+id/textViewSelecione"
+            android:entries="@array/MesesArray"></Spinner>
+
+        <EditText
+            android:id="@+id/editTextExtratoAno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:layout_alignBaseline="@+id/spinnerMes"
+            android:layout_alignBottom="@+id/spinnerMes"
+            android:layout_toEndOf="@+id/textView5" />
+    </RelativeLayout>
 
 </FrameLayout>

@@ -5,9 +5,109 @@
     tools:context="com.ifsp.wah_let.FragLancamento">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Lançamento" />
+        android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:text="Lançamento de Saldo"
+            android:textSize="35sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewValor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/textView4"
+            android:layout_below="@+id/textView4"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="45dp"
+            android:text="Valor: "
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/textViewTipo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/textViewValor"
+            android:layout_below="@+id/textViewValor"
+            android:layout_marginTop="55dp"
+            android:text="Tipo: "
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/textViewData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/textViewTipo"
+            android:layout_below="@+id/textViewTipo"
+            android:layout_marginTop="54dp"
+            android:text="Data: "
+            android:textSize="25sp" />
+
+        <DatePicker
+            android:id="@+id/datePicker"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_below="@+id/editTextData"
+            android:layout_marginStart="17dp"
+            android:layout_toEndOf="@+id/textViewValor"
+            android:visibility="invisible" />
+
+        <EditText
+            android:id="@+id/editTextValor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textViewValor"
+            android:layout_alignBottom="@+id/textViewValor"
+            android:layout_marginStart="39dp"
+            android:layout_toEndOf="@+id/textViewValor"
+            android:backgroundTint="@color/colorPrimary"
+            android:hint="Insira o valor"
+            android:inputType="numberDecimal" />
+
+        <EditText
+            android:id="@+id/editTextTipo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textViewTipo"
+            android:layout_marginStart="50dp"
+            android:layout_toRightOf="@id/textViewTipo"
+            android:backgroundTint="@color/colorPrimary"
+            android:hint="Insira o tipo" />
+
+        <EditText
+            android:id="@+id/editTextData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textViewData"
+            android:layout_alignBottom="@+id/textViewData"
+            android:layout_alignStart="@+id/editTextTipo"
+            android:backgroundTint="@color/colorPrimary"
+            android:hint="Insira a data" />
+
+        <Button
+            android:id="@+id/btnAddSaldo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Adicionar Saldo"
+            android:layout_alignBaseline="@+id/btnRemSaldo"
+            android:layout_alignBottom="@+id/btnRemSaldo"
+            android:layout_toStartOf="@+id/editTextValor" />
+
+        <Button
+            android:id="@+id/btnRemSaldo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="42dp"
+            android:text="Retirar Saldo"
+            android:layout_below="@+id/editTextData"
+            android:layout_alignEnd="@+id/textView4" />
+
+    </RelativeLayout>
 </FrameLayout>

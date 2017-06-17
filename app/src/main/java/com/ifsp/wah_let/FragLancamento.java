@@ -6,6 +6,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
+import android.widget.EditText;
+
+import java.util.Date;
 
 
 /**
@@ -22,8 +26,20 @@ public class FragLancamento extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.frag_lancamento, container, false);
+        View v  = inflater.inflate(R.layout.frag_lancamento, container, false);
+        final EditText editTextData;
+        editTextData = (EditText) v.findViewById(R.id.editTextData);
+        editTextData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePicker datePicker;
+                datePicker = (DatePicker) v.findViewById(R.id.datePicker);
+                datePicker.setVisibility(View.VISIBLE);
+                editTextData.setText(datePicker.getDayOfMonth()+"/"+datePicker.getMonth()+"/"+datePicker.getYear());
+            }
+        });
+
+        return v;
     }
 
 }
