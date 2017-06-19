@@ -13,17 +13,25 @@
         android:layout_height="wrap_content"
         android:text="Configurações" />
 
-    <ListView
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:entries="@array/LancamentoConfig"
-        android:id="@+id/lancamentoConfig"></ListView>
+        android:text="Personalise com seu nome" />
 
-    <CheckBox
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/txtName"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Deseja inserir senha automaticamente?"
-        android:id="@+id/senhaConfig"/>
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="" />
+
+    <Button
+        android:id="@+id/btn_salvar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Salvar" />
 
 </LinearLayout>
 </FrameLayout>
