@@ -6,4 +6,9 @@
         android:entries="@array/LancamentoConfig"
         android:title="Modo de visualização dos lançamentos"/>
 
+    <CheckBoxPreference
+        android:key="senhaConfig"
+        android:title="Deseja inserir senha automaticamente?"
+        android:defaultValue="false"/>
+
 </PreferenceScreen>

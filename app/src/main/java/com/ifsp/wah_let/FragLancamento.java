@@ -67,7 +67,7 @@ public class FragLancamento extends Fragment {
     public AlertDialog makeEmptyAlert(String field) {
         AlertDialog alert;
         Builder builder = new Builder(v.getContext());
-        builder.setMessage("Campo "+field+"! não pode ser vazio.")
+        builder.setMessage("Campo "+field+" não pode ser vazio.")
                 .setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {

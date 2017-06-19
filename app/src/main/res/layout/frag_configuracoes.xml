@@ -13,6 +13,17 @@
         android:layout_height="wrap_content"
         android:text="Configurações" />
 
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:entries="@array/LancamentoConfig"
+        android:id="@+id/lancamentoConfig"></ListView>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Deseja inserir senha automaticamente?"
+        android:id="@+id/senhaConfig"/>
 
 </LinearLayout>
 </FrameLayout>

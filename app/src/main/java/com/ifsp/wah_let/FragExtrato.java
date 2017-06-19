@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -191,6 +192,8 @@ public class FragExtrato extends Fragment {
 
                 spinnerMes.setVisibility(View.INVISIBLE);
                 if(position==0) {
+                    TextView textViewSelecione = (TextView) v.findViewById(R.id.textViewSelecione);
+                    textViewSelecione.setText("Selecione o mês/ano: ");
                     Date diaHoje = new Date();
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(diaHoje);
@@ -204,6 +207,8 @@ public class FragExtrato extends Fragment {
                     spinnerMes.setVisibility(View.VISIBLE);
 
                 }else{
+                    TextView textViewSelecione = (TextView) v.findViewById(R.id.textViewSelecione);
+                    textViewSelecione.setText("Selecione o ano: ");
                     EntrysDAO dao = new EntrysDAO(view.getContext());
                     Adaptador adap = new Adaptador(view.getContext(), R.layout.listview, dao.getExtract(1,"0",year.getText().toString()));
                     consultaLv.setAdapter(adap);

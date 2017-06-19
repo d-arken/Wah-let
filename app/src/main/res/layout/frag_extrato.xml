@@ -39,7 +39,7 @@
             android:layout_below="@+id/extratoSpinner"
             android:layout_marginStart="11dp"
             android:layout_marginTop="22dp"
-            android:text="Selecione o mês/ano" />
+            android:text="Selecione o mês/ano: " />
 
         <Spinner
             android:id="@+id/spinnerMes"
@@ -64,7 +64,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/frag_listview"
-            android:layout_below="@+id/editTextExtratoAno" />
+            android:layout_below="@+id/editTextExtratoAno"
+            android:layout_alignStart="@+id/textViewSelecione"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"/>
 
 
     </RelativeLayout>

@@ -37,7 +37,7 @@
             android:layout_below="@+id/editTextValor"
             android:layout_marginTop="46dp"
             android:layout_toStartOf="@+id/editTextValor"
-            android:text="Descrição:"
+            android:text="Tipo: "
             android:textSize="25sp" />
 
         <TextView
@@ -75,11 +75,11 @@
             android:id="@+id/editTextTipo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorPrimary"
-            android:hint="Insira o descrição"
             android:layout_alignBaseline="@+id/textViewTipo"
             android:layout_alignBottom="@+id/textViewTipo"
-            android:layout_alignStart="@+id/editTextValor" />
+            android:layout_alignStart="@+id/editTextValor"
+            android:backgroundTint="@color/colorPrimary"
+            android:hint="Insira o tipo" />
 
         <EditText
             android:id="@+id/editTextData"
@@ -110,7 +110,8 @@
             android:layout_marginTop="44dp"
             android:text="Retirar Saldo"
             android:layout_below="@+id/editTextData"
-            android:layout_alignEnd="@+id/textView4" />
+            android:layout_alignEnd="@+id/textView4"
+            android:layout_toEndOf="@+id/btnAddSaldo" />
 
     </RelativeLayout>
 </FrameLayout>

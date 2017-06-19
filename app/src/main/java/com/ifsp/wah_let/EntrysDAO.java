@@ -67,7 +67,6 @@ public class EntrysDAO {
         //type = 0 mensal, 1 anual
         if (type==0) {
             res = db.rawQuery("SELECT id,value,type,date FROM " + Contrato.EntradasBanco.NOME_TABELA + " WHERE strftime('%m', date) IN ('"+month+"') AND strftime('%Y', date) IN ('"+year+"')",null);
-            Log.e("Mes",String.valueOf(month));
         } else if(type ==1) {
             res = db.rawQuery("SELECT id,value,type,date FROM " + Contrato.EntradasBanco.NOME_TABELA + " WHERE strftime('%Y', date) IN ('"+year+"')", null);
         }else{
