@@ -25,6 +25,10 @@
         <item>Novembro</item>
         <item>Dezembro</item>
     </string-array>
+    <string-array name="LancamentoConfig">
+        <item>Padrão - Completo</item>
+        <item>Simples - Sem tipo</item>
+    </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="drawer_inicio">Início</string>

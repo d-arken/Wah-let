@@ -1,6 +1,11 @@
 package com.ifsp.wah_let;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
@@ -80,12 +85,12 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            FragConfiguracoes fragConfiguracoes = new FragConfiguracoes();
-            FragmentManager manager = getSupportFragmentManager();
-            FragmentTransaction transaction = manager.beginTransaction();
-            transaction.replace(R.id.container, fragConfiguracoes);
-            transaction.commit();
-            return true;
+                FragConfiguracoes fragConfiguracoes = new FragConfiguracoes();
+                FragmentManager manager = getSupportFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+                transaction.replace(R.id.container,fragConfiguracoes);
+                transaction.addToBackStack(null);
+                transaction.commit();
         }
 
         return super.onOptionsItemSelected(item);
@@ -123,4 +128,6 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }

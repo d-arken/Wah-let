@@ -19,6 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".FragConfiguracoes$SettingsActivity"
+            android:label="Configurações"></activity>
     </application>
 
 </manifest>

@@ -16,19 +16,19 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
             android:text="Lançamento de Saldo"
-            android:textSize="35sp"
+            android:textSize="30sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textViewValor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/textView4"
-            android:layout_below="@+id/textView4"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="45dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="46dp"
             android:text="Valor: "
-            android:textSize="25sp" />
+            android:textSize="25sp"
+            android:layout_below="@+id/textView4"
+            android:layout_alignStart="@+id/textView4" />
 
         <TextView
             android:id="@+id/textViewTipo"
@@ -94,24 +94,23 @@
 
         <Button
             android:id="@+id/btnAddSaldo"
-            style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Adicionar Saldo"
+            android:textColor="@android:color/holo_green_dark"
             android:layout_alignBaseline="@+id/btnRemSaldo"
             android:layout_alignBottom="@+id/btnRemSaldo"
-            android:layout_toStartOf="@+id/editTextValor"
-            android:text="Adicionar Saldo"
-            android:textColor="@android:color/holo_green_dark" />
+            android:layout_alignStart="@+id/textView4" />
 
         <Button
             android:id="@+id/btnRemSaldo"
-            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:textColor="@android:color/holo_red_dark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/textView4"
+            android:layout_marginTop="44dp"
+            android:text="Retirar Saldo"
             android:layout_below="@+id/editTextData"
-            android:layout_marginTop="42dp"
-            android:text="Retirar Saldo" />
+            android:layout_alignEnd="@+id/textView4" />
 
     </RelativeLayout>
 </FrameLayout>

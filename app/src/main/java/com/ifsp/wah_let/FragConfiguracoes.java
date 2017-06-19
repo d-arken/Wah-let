@@ -1,7 +1,9 @@
 package com.ifsp.wah_let;
 
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.preference.PreferenceFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +30,25 @@ public class FragConfiguracoes extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.frag_configuracoes, container, false);
 
+
         return v;
     }
 
+    public static class SettingsFragment extends PreferenceFragment {
+        @Override
+        public void onCreate(Bundle savedInstanceState){
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.preferences);
+        }
+    }
+
+    public class SettingsActivity extends Activity {
+        @Override
+        protected void onCreate(Bundle savedInstanceState){
+            super.onCreate(savedInstanceState);
+            getFragmentManager().beginTransaction().replace(android.R.id.content, new SettingsFragment()).commit();
+        }
+    }
+
 }
+
