@@ -2,17 +2,21 @@ package com.ifsp.wah_let;
 
 import java.util.Date;
 
+/**
+ * Created by msndo on 17-Jun-17.
+ */
 
 public class EntrysListView {
     private float value;
     private String type;
     private Date date;
+    private int id;
 
     public void setId(int id) {
         this.id = id;
     }
 
-    private int id;
+
     public float getValue() {
         return value;
     }
