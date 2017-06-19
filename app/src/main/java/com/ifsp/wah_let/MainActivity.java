@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity
                 FragmentManager manager = getSupportFragmentManager();
                 FragmentTransaction transaction = manager.beginTransaction();
                 transaction.replace(R.id.container,fragLancamento);
-                transaction.addToBackStack(null);
                 transaction.commit();
             }
         });
@@ -59,7 +58,6 @@ public class MainActivity extends AppCompatActivity
             FragmentManager manager = getSupportFragmentManager();
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.add(R.id.container, fragInicio);
-            transaction.addToBackStack(null);
             transaction.commit();
         }
     }
@@ -94,7 +92,6 @@ public class MainActivity extends AppCompatActivity
                 FragmentManager manager = getSupportFragmentManager();
                 FragmentTransaction transaction = manager.beginTransaction();
                 transaction.replace(R.id.container,fragConfiguracoes);
-                transaction.addToBackStack(null);
                 transaction.commit();
         }
 
@@ -126,7 +123,6 @@ public class MainActivity extends AppCompatActivity
             FragmentManager manager = getSupportFragmentManager();
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.replace(R.id.container,fragInicio);
-            transaction.addToBackStack(null);
             transaction.commit();
         }
 
