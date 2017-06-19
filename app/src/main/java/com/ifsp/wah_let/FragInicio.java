@@ -27,7 +27,7 @@ public class FragInicio extends Fragment {
         View v =  inflater.inflate(R.layout.frag_inicio, container, false);
         tvTotal = (TextView)v.findViewById(R.id.valorSaldo);
         EntrysDAO dao = new EntrysDAO(v.getContext());
-        tvTotal.setText(String.valueOf(dao.getValue()));
+        tvTotal.setText("R$ "+String.valueOf(dao.getValue()));
         return v;
     }
 

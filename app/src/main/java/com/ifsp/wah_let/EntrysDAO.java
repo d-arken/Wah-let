@@ -110,6 +110,25 @@ public class EntrysDAO {
 
     }
 
+    public String detailEntry(int id) {
+        String value="";
+        db = banco.getReadableDatabase();
+
+        res = db.rawQuery("SELECT "+Contrato.EntradasBanco.TIPO_COLUNA +
+                " from " + Contrato.EntradasBanco.NOME_TABELA
+                + " WHERE "+Contrato.EntradasBanco._ID +"="+id,null);
+        res.moveToFirst();
+
+        while(res.isAfterLast() ==false) {
+            value = res.getString(0);
+            res.moveToNext();
+        }
+        db.close();
+        return value;
+
+    }
+
+
 
 
 }

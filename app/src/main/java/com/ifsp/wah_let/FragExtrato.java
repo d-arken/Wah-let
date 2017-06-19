@@ -1,8 +1,10 @@
 package com.ifsp.wah_let;
 
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -27,6 +29,7 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class FragExtrato extends Fragment {
+    View v;
     ListView consultaLv;
     EditText year;
     Adaptador adap;
@@ -61,16 +64,54 @@ public class FragExtrato extends Fragment {
                 return "11";
             case 11:
                 return "12";
-
             default:
                 return "0";
 
         }
     }
+    public AlertDialog makeOkAlert(String str_alert) {
+        AlertDialog alert;
+        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+        builder.setMessage(str_alert)
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //do things
+                    }
+                });
+        alert = builder.create();
+        return alert;
+    }
+    public AlertDialog makeDeleteAlert(EntrysListView entry) {
+        AlertDialog alert;
+       final EntrysListView myEntry = entry;
+        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+        builder.setMessage("Deseja remover este registro "+entry.getType()+"?")
+                .setNegativeButton("Não", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        })
+                .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    EntrysDAO dao = new EntrysDAO(v.getContext());
+
+                        if (dao.removeEntry(myEntry.getId())) {
+                            makeOkAlert("Registro removido com sucesso!").show();
+                        }else{
+                            makeOkAlert("Erro ao remover registro").show();
+                        }
+
+                    }
+                });
+        alert = builder.create();
+        return alert;
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View v = inflater.inflate(R.layout.frag_extrato, container, false);
+        v = inflater.inflate(R.layout.frag_extrato, container, false);
 
         consultaLv = (ListView) v.findViewById(R.id.frag_listview);
         year = (EditText)v.findViewById(R.id.editTextExtratoAno);
@@ -104,7 +145,6 @@ public class FragExtrato extends Fragment {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if(extratoSpinner.getSelectedItemPosition()==0){
                     EntrysDAO dao = new EntrysDAO(v.getContext());
-
                     Adaptador adap = new Adaptador(v.getContext(), R.layout.listview, dao.getExtract(0,mes(spinnerMes.getSelectedItemPosition()),year.getText().toString()));
                     consultaLv.setAdapter(adap);
                     adap.notifyDataSetChanged();
@@ -127,7 +167,7 @@ public class FragExtrato extends Fragment {
         consultaLv.setAdapter(adap);
         adap.notifyDataSetChanged();
 
-        Log.e("Adap",adap.toString());
+
      /*Teste dados
      String dt="";
         for(EntrysListView e : dao.getExtract(2,0, Integer.valueOf(year.getText().toString()))){
@@ -158,7 +198,6 @@ public class FragExtrato extends Fragment {
                     spinnerMes.setSelection(numeroMes);
 
                     EntrysDAO dao = new EntrysDAO(view.getContext());
-
                     Adaptador adap = new Adaptador(view.getContext(), R.layout.listview, dao.getExtract(0,mes(spinnerMes.getSelectedItemPosition()),year.getText().toString()));
                     consultaLv.setAdapter(adap);
                     adap.notifyDataSetChanged();
@@ -197,6 +236,16 @@ public class FragExtrato extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+
+
+        consultaLv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                EntrysListView entry =(EntrysListView) consultaLv.getItemAtPosition(position);
+                makeDeleteAlert(entry).show();
+                return false;
             }
         });
         return v;

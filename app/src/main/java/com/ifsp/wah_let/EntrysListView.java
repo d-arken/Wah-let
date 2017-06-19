@@ -10,12 +10,16 @@ public class EntrysListView {
     private float value;
     private String type;
     private Date date;
+
+    public int getId() {
+        return id;
+    }
+
     private int id;
 
     public void setId(int id) {
         this.id = id;
     }
-
 
     public float getValue() {
         return value;
