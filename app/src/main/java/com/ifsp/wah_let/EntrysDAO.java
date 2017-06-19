@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.sql.Array;
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -42,13 +43,15 @@ public class EntrysDAO {
         return value;
     }
 
-    public boolean setEntry(float value, Date date, String type) {
+    public boolean setEntry(EntrysListView entry) {
         values = new ContentValues();
         db = banco.getWritableDatabase();
-
-        values.put(Contrato.EntradasBanco.VALOR_COLUNA, value);
-        values.put(Contrato.EntradasBanco.TIPO_COLUNA, type);
-        values.put(Contrato.EntradasBanco.DATA_COLUNA, date.toString());
+        Calendar c = Calendar.getInstance();
+        c.setTime(entry.getDate());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        values.put(Contrato.EntradasBanco.VALOR_COLUNA, entry.getValue());
+        values.put(Contrato.EntradasBanco.TIPO_COLUNA, entry.getType());
+        values.put(Contrato.EntradasBanco.DATA_COLUNA, sdf.format(c.getTime()));
         long result = db.insert(Contrato.EntradasBanco.NOME_TABELA,null,values);
         db.close();
         if (result == -1)
@@ -57,33 +60,31 @@ public class EntrysDAO {
 
     }
 
-    public ArrayList<EntrysListView> getExtract(Date from, Date to) {
+    public ArrayList<EntrysListView> getExtract(int type, int month, int year) {
         extractArray = new ArrayList<EntrysListView>();
         db = banco.getReadableDatabase();
-
-        if (from != null && to != null) {
-            res = db.rawQuery("SELECT id,value,type,date FROM " + Contrato.EntradasBanco.NOME_TABELA +
-                    "WHERE date BETWEEN " + from + " AND " + to, null);
-        } else {
-            res = db.rawQuery("SELECT id,value,type,date FROM " + Contrato.EntradasBanco.NOME_TABELA, null);
+        //type = 0 mensal, 1 anual
+        if (type==0) {
+            res = db.rawQuery("SELECT id,value,type,date FROM " + Contrato.EntradasBanco.NOME_TABELA + " WHERE strftime('%m', date) = " + month + " AND strftime('%Y', date) = "+year,null);
+        } else if(type ==1) {
+            res = db.rawQuery("SELECT id,value,type,date FROM " + Contrato.EntradasBanco.NOME_TABELA + " WHERE strftime('%Y', date) ="+year, null);
+        }else{
+            res = db.rawQuery("SELECT id,value,type,date FROM " + Contrato.EntradasBanco.NOME_TABELA ,null);
         }
 
             res.moveToFirst();
             while (res.isAfterLast() == false) {
                 EntrysListView l = new EntrysListView();
-
-
-             String s = (res.getString(3));
+                String s = (res.getString(3));
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                Date d = new Date();
+
                 try {
-                    d = dateFormat.parse(s);
+                    l.setDate(dateFormat.parse(s));
                 } catch (ParseException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
 
-                l.setDate(d);
 
                 l.setType(res.getString(2));
                 l.setValue(res.getFloat(1));

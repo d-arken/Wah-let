@@ -3,14 +3,18 @@ package com.ifsp.wah_let;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -19,8 +23,10 @@ import java.util.Date;
  * A simple {@link Fragment} subclass.
  */
 public class FragExtrato extends Fragment {
-
-
+    Adaptador adap;
+    EditText year;
+    ListView consultaLv;
+    Spinner spinnerMes,extratoSpinner;
     public FragExtrato() {
         // Required empty public constructor
     }
@@ -31,25 +37,16 @@ public class FragExtrato extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.frag_extrato, container, false);
 
+        consultaLv = (ListView) v.findViewById(R.id.frag_listview);
+        year = (EditText)v.findViewById(R.id.editTextExtratoAno);
+        spinnerMes = (Spinner) v.findViewById(R.id.spinnerMes);
+        extratoSpinner = (Spinner) v.findViewById(R.id.extratoSpinner);
+
         //Spinner Selecionar Mes ou Ano
-        Spinner extratoSpinner = (Spinner) v.findViewById(R.id.extratoSpinner);
         ArrayAdapter<CharSequence> adapterExtratoSpinner = ArrayAdapter.createFromResource(getContext(),R.array.ExtratoArray,android.R.layout.simple_spinner_item);
         adapterExtratoSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         extratoSpinner.setAdapter(adapterExtratoSpinner);
-        extratoSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
         //Spinner Mês
-        Spinner spinnerMes = (Spinner) v.findViewById(R.id.spinnerMes);
         ArrayAdapter<CharSequence> adapterSpinnerMes = ArrayAdapter.createFromResource(getContext(),R.array.MesesArray,android.R.layout.simple_spinner_item);
         adapterSpinnerMes.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerMes.setAdapter(adapterSpinnerMes);
@@ -60,12 +57,61 @@ public class FragExtrato extends Fragment {
         int numeroMes = calendar.get(Calendar.MONTH);
         int numeroAno = calendar.get(Calendar.YEAR);
         spinnerMes.setSelection(numeroMes);
-        EditText editTextExtratoAno = (EditText) v.findViewById(R.id.editTextExtratoAno);
-        editTextExtratoAno.setText(String.valueOf(numeroAno));
+        year.setText(String.valueOf(numeroAno));
+
+
+
+        EntrysDAO dao = new EntrysDAO(v.getContext());
+        adap = new Adaptador(v.getContext(), R.layout.listview, dao.getExtract(2,0, Integer.valueOf(year.getText().toString())));
+        consultaLv.setAdapter(adap);
+        adap.notifyDataSetChanged();
+
+Log.e("Adap",adap.toString());
+     /*Teste dados
+     String dt="";
+        for(EntrysListView e : dao.getExtract(2,0, Integer.valueOf(year.getText().toString()))){
+
+            dt+=e.getValue();
+            dt+=e.getType();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+            try {
+                dt += String.valueOf(sdf.format(e.getDate()));
+            }catch (Exception f){
+                dt += "Nulo";
+            }
+            Log.e("chave",dt);
+        }
+        */
+        extratoSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                EntrysDAO dao = new EntrysDAO(view.getContext());
+                spinnerMes.setVisibility(View.INVISIBLE);
+                if(position==0) {
+
+                    spinnerMes.setVisibility(View.VISIBLE);
+
+                }
+                adap = new Adaptador(view.getContext(), R.layout.listview, dao.getExtract(1,0,Integer.valueOf(year.getText().toString())));
+                consultaLv.setAdapter(adap);
+                adap.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
         spinnerMes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                EntrysDAO dao = new EntrysDAO(view.getContext());
+                adap = new Adaptador(view.getContext(), R.layout.listview, dao.getExtract(0,position,Integer.valueOf(year.getText().toString())));
+                consultaLv.setAdapter(adap);
+                adap.notifyDataSetChanged();
             }
 
             @Override
