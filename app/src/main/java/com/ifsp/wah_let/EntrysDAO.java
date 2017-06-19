@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.sql.Array;
 import java.text.ParseException;
@@ -60,14 +61,15 @@ public class EntrysDAO {
 
     }
 
-    public ArrayList<EntrysListView> getExtract(int type, int month, int year) {
+    public ArrayList<EntrysListView> getExtract(int type, String month, String year) {
         extractArray = new ArrayList<EntrysListView>();
         db = banco.getReadableDatabase();
         //type = 0 mensal, 1 anual
         if (type==0) {
-            res = db.rawQuery("SELECT id,value,type,date FROM " + Contrato.EntradasBanco.NOME_TABELA + " WHERE strftime('%m', date) = " + month + " AND strftime('%Y', date) = "+year,null);
+            res = db.rawQuery("SELECT id,value,type,date FROM " + Contrato.EntradasBanco.NOME_TABELA + " WHERE strftime('%m', date) IN ('"+month+"') AND strftime('%Y', date) IN ('"+year+"')",null);
+            Log.e("Mes",String.valueOf(month));
         } else if(type ==1) {
-            res = db.rawQuery("SELECT id,value,type,date FROM " + Contrato.EntradasBanco.NOME_TABELA + " WHERE strftime('%Y', date) ="+year, null);
+            res = db.rawQuery("SELECT id,value,type,date FROM " + Contrato.EntradasBanco.NOME_TABELA + " WHERE strftime('%Y', date) IN ('"+year+"')", null);
         }else{
             res = db.rawQuery("SELECT id,value,type,date FROM " + Contrato.EntradasBanco.NOME_TABELA ,null);
         }

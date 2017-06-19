@@ -12,11 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Configurações" />
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/frag_listview"
-        android:layout_below="@+id/editTextExtratoAno" />
+
 
 </LinearLayout>
 </FrameLayout>
