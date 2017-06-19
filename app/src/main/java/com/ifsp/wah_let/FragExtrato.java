@@ -248,8 +248,9 @@ public class FragExtrato extends Fragment {
         consultaLv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                EntrysListView entry =(EntrysListView) consultaLv.getItemAtPosition(position);
+                EntrysListView entry = (EntrysListView) consultaLv.getItemAtPosition(position);
                 makeDeleteAlert(entry).show();
+
                 return false;
             }
         });

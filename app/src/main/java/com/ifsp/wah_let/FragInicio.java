@@ -27,12 +27,12 @@ public class FragInicio extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.frag_inicio, container, false);
-        txtUser = (TextView)v.findViewById(R.id.txtUser);
+
         tvTotal = (TextView)v.findViewById(R.id.valorSaldo);
         EntrysDAO dao = new EntrysDAO(v.getContext());
         tvTotal.setText("R$ "+String.valueOf(dao.getValue()));
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getContext());
-        txtUser.setText(pref.getString("nome","Usuario"));
+
         return v;
     }
 
