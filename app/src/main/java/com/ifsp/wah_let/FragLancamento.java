@@ -4,8 +4,11 @@ package com.ifsp.wah_let;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +23,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import static android.support.v7.app.AlertDialog.*;
+
 
 public class FragLancamento extends Fragment {
 
@@ -31,6 +36,8 @@ public class FragLancamento extends Fragment {
     EditText editTextData, editTextValor, editTextTipo;
     Calendar myCalendar = Calendar.getInstance();
     Button addButton, removeButton;
+    boolean isOk;
+
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
         @Override
@@ -52,6 +59,54 @@ public class FragLancamento extends Fragment {
 
         editTextData.setText(sdf.format(myCalendar.getTime()));
     }
+
+    //Validacoes
+    public boolean isNullOrEmpty(String string){
+        return TextUtils.isEmpty(string);
+    }
+    public AlertDialog makeEmptyAlert(String field) {
+        AlertDialog alert;
+        Builder builder = new Builder(v.getContext());
+        builder.setMessage("Campo "+field+"! não pode ser vazio.")
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //do things
+                    }
+                });
+        alert = builder.create();
+        isOk=false;
+        return alert;
+    }
+    public AlertDialog makeSucessAlert(String field) {
+        AlertDialog alert;
+        Builder builder = new Builder(v.getContext());
+        builder.setMessage("Sucesso! O registro de R$"+field+" está feito!")
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //do things
+                    }
+                });
+        alert = builder.create();
+        return alert;
+    }
+    public AlertDialog makeErrorAlert() {
+        AlertDialog alert;
+        Builder builder = new Builder(v.getContext());
+        builder.setMessage("Falha! O registro não pode ser feito!")
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //do things
+                    }
+                });
+        alert = builder.create();
+        return alert;
+    }
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -71,24 +126,38 @@ public class FragLancamento extends Fragment {
             }
         });
 
+
         removeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EntrysListView entry = new EntrysListView();
-                entry.setType(editTextTipo.getText().toString());
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                try {
-                    Date d = sdf.parse(editTextData.getText().toString());
-                    entry.setDate(d);
-                } catch (ParseException e) {
-                    e.printStackTrace();
+
+                isOk=true;
+
+                if(isNullOrEmpty(editTextTipo.getText().toString()))
+                    makeEmptyAlert("descrição").show();
+                if(isNullOrEmpty(editTextData.getText().toString()))
+                    makeEmptyAlert("data").show();
+                if(isNullOrEmpty(editTextValor.getText().toString()))
+                    makeEmptyAlert("valor").show();
+
+                if(isOk) {
+                    EntrysListView entry = new EntrysListView();
+                    entry.setType(editTextTipo.getText().toString());
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    try {
+                        Date d = sdf.parse(editTextData.getText().toString());
+                        entry.setDate(d);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    entry.setValue(-Float.valueOf(editTextValor.getText().toString()));
+
+                    EntrysDAO dao = new EntrysDAO(getContext());
+                    if(dao.setEntry(entry))
+                        makeSucessAlert("-"+editTextValor.getText().toString()).show();
+                    else
+                        makeErrorAlert().show();
                 }
-                entry.setValue(-Float.valueOf(editTextValor.getText().toString()));
-
-                EntrysDAO dao = new EntrysDAO(getContext());
-                dao.setEntry(entry);
-
-
 
             }
         });
@@ -96,25 +165,41 @@ public class FragLancamento extends Fragment {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EntrysListView entry = new EntrysListView();
-                entry.setType(editTextTipo.getText().toString());
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                try {
-                    Date d = sdf.parse(editTextData.getText().toString());
-                    entry.setDate(d);
-                } catch (ParseException e) {
-                    e.printStackTrace();
+
+                isOk=true;
+
+                if(isNullOrEmpty(editTextTipo.getText().toString()))
+                    makeEmptyAlert("descrição").show();
+                if(isNullOrEmpty(editTextData.getText().toString()))
+                    makeEmptyAlert("data").show();
+                if(isNullOrEmpty(editTextValor.getText().toString()))
+                    makeEmptyAlert("valor").show();
+
+                if(isOk) {
+                    EntrysListView entry = new EntrysListView();
+                    entry.setType(editTextTipo.getText().toString());
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    try {
+                        Date d = sdf.parse(editTextData.getText().toString());
+                        entry.setDate(d);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    entry.setValue(Float.valueOf(editTextValor.getText().toString()));
+
+                    EntrysDAO dao = new EntrysDAO(getContext());
+                    if(dao.setEntry(entry))
+                        makeSucessAlert("+"+editTextValor.getText().toString()).show();
+                    else
+                        makeErrorAlert().show();
                 }
 
-                entry.setValue(Float.valueOf(editTextValor.getText().toString()));
-
-                EntrysDAO dao = new EntrysDAO(getContext());
-                dao.setEntry(entry);
             }
         });
 
 
         this.v=v;
+
         return v;
     }
 
